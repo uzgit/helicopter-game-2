@@ -23,6 +23,7 @@ class Population(object):
         self.elapsedTime = 0
         self.generationsToRun = 0
         self.startTime = 0
+        self.bestFitnessEver = 0
 
         for i in range(self.populationSize):
             self.population.append(Genome(num_inputs, num_outputs, nodes_per_layer, [weight_min_value, weight_max_value]))
@@ -53,8 +54,16 @@ class Population(object):
 
     def createNewGeneration(self): #creates 1 generation
 
-        newPopulation = sorted(self.population, key=lambda x: x.getFitness())
+        newPopulation = sorted(self.population, key=lambda x: -x.getFitness())
         self.bestFitness = newPopulation[0].getFitness()
+
+        #if self.bestFitness > self.bestFitnessEver:
+        #    self.bestFitnessEver = self.bestFitness
+        with open('data.txt', 'a') as output:
+            output.write(str(newPopulation[0].weights)+"\n")
+            output.write(str(self.bestFitness)+"\n")
+            output.close()
+
 
         fitnessList = []
         for i in newPopulation:
