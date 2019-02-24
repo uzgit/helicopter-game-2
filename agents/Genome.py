@@ -36,7 +36,7 @@ class Genome(object):
         weight_matrix = np.dot(rangeOfWeights[0] + (rangeOfWeights[1] - rangeOfWeights[0]), weight_matrix)
         self.weights.append(weight_matrix)
         self.bias.append(0)
-        self.activation.append("sigmoid")
+        self.activation.append("relu")
         #print(layers[i], self.NumberOfOutputs)
         # print(self.bias)
         #print(self.activation)

@@ -43,10 +43,10 @@ node_add_prob           = 0.2
 node_delete_prob        = 0.2
 
 # network parameters
-num_hidden              = 4
 num_inputs              = 11
 num_outputs             = 2
-nodes_per_layer = [50, 70, 100, 40, 30]
+nodes_per_layer = [32, 64, 128, 256, 128, 64, 32]
+num_hidden              = len(nodes_per_layer)
 
 # node response options
 response_init_mean      = 1.0
@@ -60,8 +60,8 @@ response_replace_rate   = 0.0
 # connection weight options
 weight_init_mean        = 0.0
 weight_init_stdev       = 1.0
-weight_max_value        = 0.3
-weight_min_value        = -0.3
+weight_max_value        = 3
+weight_min_value        = -3
 weight_mutate_power     = 0.5
 weight_mutate_rate      = 0.8
 weight_replace_rate     = 0.1
@@ -75,4 +75,7 @@ species_elitism      = 2
 elitism            = 2
 survival_threshold = 0.2
 
-number_of_generations=500
+number_of_generations = 500
+mutation_probability = 0.1
+elitism_portion = 0.3
+random_others_portion = 0.2
