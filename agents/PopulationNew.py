@@ -57,12 +57,12 @@ class Population(object):
         newPopulation = sorted(self.population, key=lambda x: -x.getFitness())
         self.bestFitness = newPopulation[0].getFitness()
 
-        #if self.bestFitness > self.bestFitnessEver:
-        #    self.bestFitnessEver = self.bestFitness
-        with open('data.txt', 'a') as output:
-            output.write(str(newPopulation[0].weights)+"\n")
-            output.write(str(self.bestFitness)+"\n")
-            output.close()
+        if self.bestFitness > self.bestFitnessEver:
+            self.bestFitnessEver = self.bestFitness
+            with open('data.txt', 'a') as output:
+                output.write(str(newPopulation[0].weights)+"\n")
+                output.write(str(self.bestFitness)+"\n")
+                output.close()
 
 
         fitnessList = []
