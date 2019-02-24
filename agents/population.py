@@ -60,7 +60,9 @@ class Population(object):
     def remove_reporter(self, reporter):
         self.reporters.remove(reporter)
 
+
     def run(self, fitness_function, n=None):
+
         """
         Runs NEAT's genetic algorithm for at most n generations.  If n
         is None, run until solution is found or extinction occurs.
@@ -78,8 +80,8 @@ class Population(object):
         It is assumed that fitness_function does not modify the list of genomes,
         the genomes themselves (apart from updating the fitness member),
         or the configuration object.
-        """
 
+        """
         if self.config.no_fitness_termination and (n is None):
             raise RuntimeError("Cannot have no generational limit with no fitness termination")
 

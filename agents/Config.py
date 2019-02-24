@@ -1,16 +1,13 @@
-#--- parameters for the XOR-2 experiment ---#
 
-[NEAT]
 fitness_criterion     = max
 fitness_threshold     = 3.9
 pop_size              = 150
 reset_on_extinction   = False
 
-[DefaultGenome]
 # node activation options
-activation_default      = sigmoid
+activation_default      = 'sigmoid'
 activation_mutate_rate  = 0.0
-activation_options      = sigmoid
+activation_options      = 'sigmoid'
 
 # node aggregation options
 aggregation_default     = sum
@@ -20,8 +17,8 @@ aggregation_options     = sum
 # node bias options
 bias_init_mean          = 0.0
 bias_init_stdev         = 1.0
-bias_max_value          = 30.0
-bias_min_value          = -30.0
+bias_max_value          = 30
+bias_min_value          = -30
 bias_mutate_power       = 0.5
 bias_mutate_rate        = 0.7
 bias_replace_rate       = 0.1
@@ -39,7 +36,7 @@ enabled_default         = True
 enabled_mutate_rate     = 0.01
 
 feed_forward            = True
-initial_connection      = full
+initial_connection      = 'full'
 
 # node add/remove rates
 node_add_prob           = 0.2
@@ -48,13 +45,14 @@ node_delete_prob        = 0.2
 # network parameters
 num_hidden              = 4
 num_inputs              = 11
-num_outputs             = 1
+num_outputs             = 2
+nodes_per_layer = [50, 70, 100, 40, 30]
 
 # node response options
 response_init_mean      = 1.0
 response_init_stdev     = 0.0
-response_max_value      = 30.0
-response_min_value      = -30.0
+response_max_value      = 30
+response_min_value      = -30
 response_mutate_power   = 0.0
 response_mutate_rate    = 0.0
 response_replace_rate   = 0.0
@@ -62,21 +60,19 @@ response_replace_rate   = 0.0
 # connection weight options
 weight_init_mean        = 0.0
 weight_init_stdev       = 1.0
-weight_max_value        = 30
-weight_min_value        = -30
+weight_max_value        = 0.3
+weight_min_value        = -0.3
 weight_mutate_power     = 0.5
 weight_mutate_rate      = 0.8
 weight_replace_rate     = 0.1
 
-[DefaultSpeciesSet]
 compatibility_threshold = 3.0
 
-[DefaultStagnation]
 species_fitness_func = max
 max_stagnation       = 20
 species_elitism      = 2
 
-[DefaultReproduction]
 elitism            = 2
 survival_threshold = 0.2
 
+number_of_generations=500
