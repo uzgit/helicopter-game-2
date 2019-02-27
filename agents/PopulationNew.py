@@ -9,6 +9,7 @@ from __future__ import print_function
 from .Config import *
 from .Genome import *
 import time
+import copy
 
 
 class Population(object):
@@ -31,24 +32,50 @@ class Population(object):
         self.startTime = time.time()
 
     def crossover(self, genome1, genome2):
-        child1 = genome1
-        child2 = genome2
-        separator = np.random.randint(1, len(genome1.weights))
-        # Child 1 is going to inherit weights/bias of parent 1 before separator and weights/bias of parent 2 after separator
-        for i in range(separator, len(genome1.weights)):
-            child1.weights[i] = genome2.weights[i]
-            child2.weights[i] = genome1.weights[i]
-            child1.bias[i] = genome2.bias[i]
-            child2.bias[i] = genome1.bias[i]
 
-        return [child1, child2]
+            alpha = 0.6
+            # alpha=np.random.randint(0, 1)
+            #        genome1_array = []
+            #        genome2_array = []
+            #        for k in range (len(genome1.weights)):
+            #            genome1_array.append(np.squeeze(np.asarray(genome1.weights[k])))
+            #            genome2_array.append(np.squeeze(np.asarray(genome2.weights[k])))
+            A = copy.deepcopy(genome1.weights)
+            B = copy.deepcopy(genome1.weights)
+            I = copy.deepcopy(genome1.weights)
+            for i in range(len(genome1.weights)):
+                (rows, columns) = genome1.weights[i].shape
+                for j in range(rows):
+                    for k in range(columns):
+                        B[i][j, k] = max(genome1.weights[i][j, k], genome2.weights[i][j, k])
+                        A[i][j, k] = min(genome1.weights[i][j, k], genome2.weights[i][j, k])
+                        I[i][j, k] = abs(genome1.weights[i][j, k] - genome2.weights[i][j, k])
+
+            C1 = copy.deepcopy(genome1)
+            C2 = copy.deepcopy(genome1)
+            for i in range(len(A)):
+                (rows, columns) = A[i].shape
+                for j in range(rows):
+                    for k in range(columns):
+                        C1.weights[i][j, k] = np.random.uniform(A[i][j, k] - alpha * I[i][j, k],
+                                                                B[i][j, k] + alpha * I[i][j, k])
+                        C2.weights[i][j, k] = np.random.uniform(A[i][j, k] - alpha * I[i][j, k],
+                                                                B[i][j, k] + alpha * I[i][j, k])
+            # counter = 0
+
+            return [C1, C2]
 
 
     def mutation(self, genome):
-        separator = np.random.randint(1, len(genome.weights))
-        if np.random.random() < mutation_probability:
-            [a, b] = genome.weights[separator].shape
-            genome.weights[separator] = np.random.rand(a, b)-0.5
+
+        for i in genome.weights:
+            b = np.random.uniform(0, 1, i.shape) #mutation chance
+            c = np.random.uniform(-1, 1, i.shape) #new values
+            mask1 = (b<mutation_probability)*1 #b values on proper positions
+            mask2 = (b>=mutation_probability)*1 #reversed mask2
+            temp = np.multiply(mask2, i)
+            i = temp + np.multiply(c, mask1)
+
 
         return genome
 
@@ -91,7 +118,7 @@ class Population(object):
             if np.random.random() < (newPopulation[iter].getFitness())/self.bestFitness:
                 listOfParents.append(newPopulation[iter])
             if iter <= 0:
-                iter = len(newPopulation)
+                iter = len(newPopulation)-1
             else:
                 iter -= 1
 
@@ -119,8 +146,10 @@ class Population(object):
        # Create the next generation from the current generation.
         self.population = self.createNewGeneration()
         self.elapsedTime = time.time() - self.startTime
+        print("Best Distance of generation: ", self.bestFitness)
         print("Average distance of generation", self.generationNumber+1, "is:", self.averageFitness)
         print("Elapsed time:", self.elapsedTime, "seconds")
+        print("Best Distance reached is: ", self.bestFitnessEver)
 
         if self.generationNumber < self.generationsToRun:
             # return list(iteritems(self.population)), self.config

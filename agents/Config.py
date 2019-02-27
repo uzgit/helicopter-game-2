@@ -45,7 +45,7 @@ node_delete_prob        = 0.2
 # network parameters
 num_inputs              = 11
 num_outputs             = 2
-nodes_per_layer = [32, 64, 128, 256, 128, 64, 32]
+nodes_per_layer = [9, 6, 3]
 num_hidden              = len(nodes_per_layer)
 
 # node response options
@@ -76,6 +76,6 @@ elitism            = 2
 survival_threshold = 0.2
 
 number_of_generations = 500
-mutation_probability = 0.1
+mutation_probability = 0.01
 elitism_portion = 0.3
 random_others_portion = 0.2
