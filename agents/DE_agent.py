@@ -14,6 +14,7 @@ class Agent():
         self.population_object = Population()
         self.genome_index = 0
         self.current_network = self.population_object.getPopulation()[self.genome_index]
+        self.flag = True #flag used to know when to do a finish run and when to do a createTrialPopulation
 
 
     # This is the name of the constructor used by the game.
@@ -28,8 +29,13 @@ class Agent():
 
         self.genome_index += 1
         if self.genome_index == len(self.population_object.getPopulation()):
-            self.population_object.finishRun()
-            self.population_object.initRun(n=self.generations)
+            self.flag = not self.flag
+            if self.flag:
+                self.population_object.finishRun()
+                self.population_object.initRun(n=self.generations)
+            else:
+                self.population_object.population = self.population_object.createTrialPopulation()
+
             self.genome_index = 0
             self.startTime = time.time()
         else:

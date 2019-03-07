@@ -25,6 +25,7 @@ class Population(object):
         self.generationsToRun = 0
         self.startTime = 0
         self.bestFitnessEver = 0
+        self.previousPopulation = []
 
         for i in range(self.populationSize):
             self.population.append(Genome(num_inputs, num_outputs, nodes_per_layer, [weight_min_value, weight_max_value]))
@@ -45,11 +46,12 @@ class Population(object):
         mutant = copy.deepcopy(target)
         for i in range(len(target.weights)):
             mutant.weights[i] = a.weights[i] + mutation_rate * (b.weights[i] - c.weights[i])
+
         return mutant
 
 
-    def createNewGeneration(self): #creates 1 generation
-
+    def createTrialPopulation(self): #creates 1 generation
+        self.previousPopulation = copy.deepcopy(self.population) #needed for checking which units should be in the new population
         for i in range(self.populationSize):
 
             target = self.population[i]
@@ -62,26 +64,8 @@ class Population(object):
             mutant = self.mutation(target, a, b, c)
             trial = self.recombination(target, mutant)
             self.population[i] = trial
-        return self.population
 
-    def getPopulation(self):
-        return self.population
-
-    def initRun(self, n):
-        self.generationsToRun = n
-        self.generationNumber += 1
-
-    def finishRun(self):
-
-
-       # Create the next generation from the current generation.
-        pop = self.population
-        self.population = self.createNewGeneration()
-        for i in range(self.populationSize):
-            if self.population[i].getFitness() < pop[i].getFitness():
-                self.population[i] = pop[i]
-
-        newPopulation = sorted(self.population, key=lambda x: -x.getFitness())
+        newPopulation = sorted(self.previousPopulation, key=lambda x: -x.getFitness())
         self.bestFitness = newPopulation[0].getFitness()
 
         fitnessList = []
@@ -97,13 +81,32 @@ class Population(object):
                 output.write(str(self.bestFitness) + "\n")
                 output.close()
             self.elapsedTime = time.time() - self.startTime
-           
 
-        print("Best Distance of generation: ", self.bestFitness)
-        print("Average distance of generation", self.generationNumber+1, "is:", self.averageFitness)
-        print("Elapsed time:", self.elapsedTime, "seconds")
-        print("Best Distance reached is: ", self.bestFitnessEver)
-        print("_________________________________________________________")
+        return self.population
+
+    def getPopulation(self):
+        return self.population
+
+    def initRun(self, n):
+        self.generationsToRun = n
+        self.generationNumber += 1
+
+    def finishRun(self):
+
+
+       # Create the next generation from the current generation.
+        if self.generationNumber != 1:
+            print("Best Distance of generation: ", self.bestFitness)
+            print("Average distance of generation", self.generationNumber+1, "is:", self.averageFitness)
+            print("Elapsed time:", self.elapsedTime, "seconds")
+            print("Best Distance reached is: ", self.bestFitnessEver)
+            print("_________________________________________________________")
+
+        if self.previousPopulation != []:
+            for i in range(self.populationSize):
+                if self.population[i].getFitness() < self.previousPopulation[i].getFitness():
+                    self.population[i] = self.previousPopulation[i] #comparing
+
 
         if self.generationNumber < self.generationsToRun:
             self.startTime = time.time()
