@@ -18,5 +18,7 @@ weight_replace_rate     = 0.1
 
 number_of_generations = 500
 mutation_probability = 0.01
+mutation_rate = 0.8
+crossp = 0.7
 elitism_portion = 0.3
 random_others_portion = 0.2
