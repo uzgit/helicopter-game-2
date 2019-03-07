@@ -1,10 +1,6 @@
 from __future__ import print_function
-import os
-import neat
 from .PopulationNew import *
-import numpy as np
 from .Genome import *
-import random
 import time
 
 
@@ -73,11 +69,10 @@ class Agent():
 
         action = None
         Inputs=np.array(inputs)
-        Inputs.shape = (1, 11)
+        Inputs.shape = (1, 12)
         output = self.current_network.full_forward_propagation(Inputs)
 
         if output[0, 0] > output[0, 1]:
             action = "up"
-       # print(output)
 
         return action

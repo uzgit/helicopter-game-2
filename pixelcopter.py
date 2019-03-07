@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import math
 import sys
 import argparse
@@ -13,37 +14,45 @@ from lib.pygamewrapper import PyGameWrapper
 from lib.vec2d import vec2d
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--mode", help = "In <flappy> mode, an up action is like one flap of a birds wings. Pressing up gives the helicopter a momentary lift. In <helicopter> mode, an up action is like throttling up. It gives the helicopter continuous lift.", default="flappy")
-parser.add_argument("-s", "--fps",     help = "Frames per second. Increase this value to go faster, decrease to go slower.", default = 30, type = float)
-parser.add_argument("-a", "--agent",   help = "Name of the type of agent to use to play the game. This should be equal to the name of the agent's python file, without the '.py'", default =None, type = str)
-parser.add_argument("-n", "--noisy-sensors",   help = "Adds gausian noise into the simulated sensor values. Noise amplitude for obstaces is directly proportional to the distance from the obstacle.", action="store_true")
-parser.add_argument("-d", "--no-data", help = "Suppresses on-screen data output.", action="store_true")
-parser.add_argument("-q", "--quiet-mode",   help = "Quiet mode simulates the game without animation.", action="store_true")
+parser.add_argument("-m", "--mode",
+                    help="In <flappy> mode, an up action is like one flap of a birds wings. Pressing up gives the helicopter a momentary lift. In <helicopter> mode, an up action is like throttling up. It gives the helicopter continuous lift.",
+                    default="flappy")
+parser.add_argument("-s", "--fps", help="Frames per second. Increase this value to go faster, decrease to go slower.",
+                    default=30, type=float)
+parser.add_argument("-a", "--agent",
+                    help="Name of the type of agent to use to play the game. This should be equal to the name of the agent's python file, without the '.py'",
+                    default=None, type=str)
+parser.add_argument("-n", "--noisy-sensors",
+                    help="Adds gausian noise into the simulated sensor values. Noise amplitude for obstaces is directly proportional to the distance from the obstacle.",
+                    action="store_true")
+parser.add_argument("-d", "--no-data", help="Suppresses on-screen data output.", action="store_true")
+parser.add_argument("-q", "--quiet-mode", help="Quiet mode simulates the game without animation.", action="store_true")
+parser.add_argument("-o", "--headless", help="Run the game entirely without a monitor.", action="store_true")
 arguments = parser.parse_args()
 
-#emulation_speed = arguments.speed
+# emulation_speed = arguments.speed
 agent_argument = arguments.agent
 
 if agent_argument is not None:
-
     Agent = importlib.import_module("agents." + agent_argument)
 
 print(arguments)
 
-BLACK      = (  0,   0,   0)
-GREY       = (169, 169, 169)
-SILVER     = (192, 192, 192)
-WHITE      = (255, 255, 255)
-LSU_PURPLE = ( 70,  29, 124)
-LSU_GOLD   = (253, 208,  35)
-GREEN      = (  0, 255,  51)
+BLACK = (0, 0, 0)
+GREY = (169, 169, 169)
+SILVER = (192, 192, 192)
+WHITE = (255, 255, 255)
+LSU_PURPLE = (70, 29, 124)
+LSU_GOLD = (253, 208, 35)
+GREEN = (0, 255, 51)
 
-WINDOW_WIDTH  = 700
+WINDOW_WIDTH = 700
 WINDOW_HEIGHT = 700
-BLOCK_WIDTH_COEFFICIENT   = 0.05 #default is 0.1
-BLOCK_HEIGHT_COEFFICIENT  = 0.10 #default is 0.2
-PLAYER_WIDTH_COEFFICIENT  = 0.03 #default = 0.05
-PLAYER_HEIGHT_COEFFICIENT = 0.03 #default = 0.05
+BLOCK_WIDTH_COEFFICIENT = 0.05  # default is 0.1
+BLOCK_HEIGHT_COEFFICIENT = 0.10  # default is 0.2
+PLAYER_WIDTH_COEFFICIENT = 0.03  # default = 0.05
+PLAYER_HEIGHT_COEFFICIENT = 0.03  # default = 0.05
+
 
 # Class for the blocks that appear in the way of the helicopter
 class Block(pygame.sprite.Sprite):
@@ -80,6 +89,7 @@ class Block(pygame.sprite.Sprite):
 
         self.rect.center = (self.pos.x, self.pos.y)
 
+
 # Class for the pixhel that takes the place of the helicopter
 class HelicopterPlayer(pygame.sprite.Sprite):
 
@@ -104,18 +114,18 @@ class HelicopterPlayer(pygame.sprite.Sprite):
         self.width = SCREEN_WIDTH * PLAYER_WIDTH_COEFFICIENT
         self.height = SCREEN_HEIGHT * PLAYER_HEIGHT_COEFFICIENT
 
-        image = pygame.Surface((2*self.width, 1.5*self.height))
+        image = pygame.Surface((2 * self.width, 1.5 * self.height))
         image.fill((0, 0, 0, 0))
         image.set_colorkey((0, 0, 0))
 
-#        pygame.draw.rect(
-#            image,
-#            WHITE,
-#            (0, 0, self.width, self.height),
-#            0
-#        )
+        #        pygame.draw.rect(
+        #            image,
+        #            WHITE,
+        #            (0, 0, self.width, self.height),
+        #            0
+        #        )
 
-        image.blit(helicopter, (0,0))
+        image.blit(helicopter, (0, 0))
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = pos_init
@@ -127,6 +137,7 @@ class HelicopterPlayer(pygame.sprite.Sprite):
 
         self.rect.center = (self.pos.x, self.pos.y)
 
+
 # Class for the terrain forming the border of the "cave"
 class Terrain(pygame.sprite.Sprite):
 
@@ -135,7 +146,7 @@ class Terrain(pygame.sprite.Sprite):
 
         self.pos = vec2d(pos_init)
         self.speed = speed
-        self.width = int( SCREEN_WIDTH * 0.1) #default = 0.2
+        self.width = int(SCREEN_WIDTH * 0.1)  # default = 0.2
 
         image = pygame.Surface((self.width, SCREEN_HEIGHT * 1.5))
         image.fill((0, 0, 0, 0))
@@ -167,6 +178,7 @@ class Terrain(pygame.sprite.Sprite):
         self.pos.x -= self.speed * dt
         self.rect.center = (self.pos.x, self.pos.y)
 
+
 # Class for the actual Pixelcopter game object
 class Pixelcopter(PyGameWrapper):
     """
@@ -181,11 +193,11 @@ class Pixelcopter(PyGameWrapper):
     """
 
     def __init__(self, width=48, height=48, agent=None):
-        actions ={
-            "up"    : K_w,
-            "quit"  : K_q,
-            "pause" : K_p,
-            "toggle_quiet_mode" : K_v
+        actions = {
+            "up": K_w,
+            "quit": K_q,
+            "pause": K_p,
+            "toggle_quiet_mode": K_v
         }
 
         PyGameWrapper.__init__(self, width, height, actions=actions)
@@ -206,7 +218,7 @@ class Pixelcopter(PyGameWrapper):
 
             if event.type == pygame.KEYDOWN:
                 key = event.key
-                if   key == self.actions['up']:
+                if key == self.actions['up']:
                     self.is_climbing = True
                 elif key == self.actions['quit']:
                     pygame.quit()
@@ -237,13 +249,13 @@ class Pixelcopter(PyGameWrapper):
 
         self.is_climbing = False
 
-        if   action == "up" :
+        if action == "up":
             self.is_climbing = True
-        elif action == "quit" :
+        elif action == "quit":
             print("Quit requested by agent.")
             pygame.quit()
             sys.exit()
-    
+
     def _handle_player_pause_quit_events(self):
 
         for event in pygame.event.get():
@@ -293,32 +305,57 @@ class Pixelcopter(PyGameWrapper):
         current_terrain = pygame.sprite.spritecollide(
             self.player, self.terrain_group, False)[0]
 
-        scanner_height = 500 #pixels or something
+        scanner_height = 200  # pixels or something
         num_segments = 5
         segments = []
-        for i in range(num_segments - 1):
-            segment_bottom = (self.player.pos.y - scanner_height/2.0) + float(i) / num_segments * scanner_height
-            segment_top = (self.player.pos.y - scanner_height/2.0) + float(i+1) / num_segments * scanner_height
-            
-            segment_occupied = 0.0
-            if (min_block.pos.y <= segment_top and min_block.pos.y >= segment_bottom):
-                segment_occupied = 1.0
-            elif ((min_block.pos.y + min_block.height) <= segment_top and (min_block.pos.y + min_block.height) >= segment_bottom):
-                segment_occupied = 1.0
-            segments.append(segment_occupied)
+        block_min = min_block.pos.y - min_block.height / 2.0
+        block_max = min_block.pos.y + min_block.height / 2.0
+        for i in range(num_segments):
+            segment_bottom = (self.player.pos.y - scanner_height / 2.0) + float(i) / num_segments * scanner_height
+            segment_top = (self.player.pos.y - scanner_height / 2.0) + float(i + 1) / num_segments * scanner_height
 
-        #print(segments)
+            segment_occupied = 0
+            if block_min <= segment_top and segment_top <= block_max:
+                segment_occupied = 1
+            elif block_min <= segment_bottom and segment_bottom <= block_max:
+                segment_occupied = 1
+            # if (min_block.pos.y <= segment_top and min_block.pos.y >= segment_bottom):
+            #    segment_occupied = 1.0
+            # elif ((min_block.pos.y - min_block.height) <= segment_top and (min_block.pos.y - min_block.height) >= segment_bottom):
+            #    segment_occupied = 1.0
+            segments.append(segment_occupied * ((1 - min_dist / 750.0) ** 2))
+
+        look_ahead = 3  # number of terrains (in front of copter) to get dist_to_ceil and dist_to_floor
+        current_terrain_index = list(self.terrain_group).index(current_terrain)
+        all_terrains = list(self.terrain_group)
+        next_terrain_y_positions = []
+        for i in range(look_ahead):
+            next_terrain_y_positions.append(all_terrains[current_terrain_index + i].pos.y)
+
+        # print(next_terrain_y_positions)
+
+        normalized_heights = []
+        height_ratios = []
+        for terrain_y_position in next_terrain_y_positions:
+            distance_to_ceiling = self.player.pos.y - (terrain_y_position - self.height * 0.25)
+            distance_to_floor = (terrain_y_position + self.height * 0.25) - self.player.pos.y
+            height_ratios.append(distance_to_floor / (distance_to_floor + distance_to_ceiling))
+
+            normalized_heights.append(1 - (distance_to_ceiling / 350.0))
+            normalized_heights.append(1 - (distance_to_floor / 350.0))
 
         state = {
-            "distance_traveled" : self.distance_traveled,
-            "player_y" : self.player.pos.y,
-            "player_vel" : self.player.momentum,
-            "player_dist_to_ceil" : self.player.pos.y - (current_terrain.pos.y - self.height * 0.25),
-            "player_dist_to_floor" : (current_terrain.pos.y + self.height * 0.25) - self.player.pos.y,
+            "distance_traveled": self.distance_traveled,
+            "player_y": self.player.pos.y,
+            "player_vel": self.player.momentum,
+            "player_dist_to_ceil": self.player.pos.y - (current_terrain.pos.y - self.height * 0.25),
+            "player_dist_to_floor": (current_terrain.pos.y + self.height * 0.25) - self.player.pos.y,
             "next_gate_dist_to_player": min_dist,
-            "next_gate_block_top" : min_block.pos.y,
-            "next_gate_block_bottom" : min_block.pos.y + min_block.height,
-            "segments" : segments
+            "next_gate_block_top": min_block.pos.y,
+            "next_gate_block_bottom": min_block.pos.y + min_block.height,
+            "height_ratios": height_ratios,
+            "segments": segments,
+            "normalized_heights": normalized_heights,
         }
 
         return state
@@ -331,13 +368,13 @@ class Pixelcopter(PyGameWrapper):
 
         gate_distance = true_state["next_gate_dist_to_player"]
 
-        #numpy.random.normal( <mean> , <standard deviation> )
-        noisy_state["player_y"]                 += numpy.random.normal(0, 2)
-        noisy_state["player_vel"]               += numpy.random.normal(0, 0.2)
-        noisy_state["player_dist_to_ceil"]  += numpy.random.normal(0, 2)
-        noisy_state["player_dist_to_floor"]     += numpy.random.normal(0, 2)
-        noisy_state["next_gate_block_top"]      += numpy.random.normal(0, 2 + (gate_distance / 60))
-        noisy_state["next_gate_block_bottom"]   += numpy.random.normal(0, 2 + (gate_distance / 60))
+        # numpy.random.normal( <mean> , <standard deviation> )
+        noisy_state["player_y"] += numpy.random.normal(0, 2)
+        noisy_state["player_vel"] += numpy.random.normal(0, 0.2)
+        noisy_state["player_dist_to_ceil"] += numpy.random.normal(0, 2)
+        noisy_state["player_dist_to_floor"] += numpy.random.normal(0, 2)
+        noisy_state["next_gate_block_top"] += numpy.random.normal(0, 2 + (gate_distance / 60))
+        noisy_state["next_gate_block_bottom"] += numpy.random.normal(0, 2 + (gate_distance / 60))
         noisy_state["next_gate_dist_to_player"] += numpy.random.normal(0, 2)
 
         return noisy_state
@@ -376,10 +413,10 @@ class Pixelcopter(PyGameWrapper):
         self.distance_traveled = 0
 
     def _add_terrain(self, start, end):
-        w = int(self.width * 0.1) #default is 0.1
+        w = int(self.width * 0.1)  # default is 0.1
         # each block takes up 10 units.
         steps = range(start + int(w / 2), end + int(w / 2), w)
-        #steps = range(start, end + w, 5)
+        # steps = range(start, end + w, 5)
         y_jitter = []
 
         freq = 4.5 / self.width + self.rng.uniform(-0.01, 0.01)
@@ -414,38 +451,42 @@ class Pixelcopter(PyGameWrapper):
         )
 
     def reset(self):
-        
+
         if agent is not None:
             if arguments.noisy_sensors:
-                agent.reset(game.getNoisyGameState())
+                result = agent.reset(game.getNoisyGameState())
             else:
-                agent.reset(game.getGameState())
-        
+                result = agent.reset(game.getGameState())
+
+            if result is "quit":
+                print("Quit requested by agent.")
+                pygame.quit()
+                sys.exit()
+
         self.init()
 
     def step(self, dt):
 
         self.screen.fill((BLACK))
 
-        #If the player is human
+        # If the player is human
         if agent == None:
             if arguments.mode == "flappy":
                 self._handle_player_events_flappy_mode()
             else:
                 self._handle_player_events_helicopter_mode()
 
-        #If the player is an agent
+        # If the player is an agent
         else:
             if arguments.noisy_sensors:
                 state = game.getNoisyGameState()
             else:
                 state = game.getGameState()
-            
+
             if agent is not None:
                 agent_action = agent.get_action(state)
                 game._handle_agent_action(agent_action)
                 game._handle_player_pause_quit_events()
-
 
         self.score += self.rewards["tick"]
 
@@ -500,26 +541,42 @@ class Pixelcopter(PyGameWrapper):
 
         self.distance_traveled += self.speed * dt
 
+
 #################################################################################################
 # Some functions to display data to the screen
 def display_status_line_1(status):
-    return "player: (distance: %-7.2f, y position: %4.2f, y velocity: %4.2f)" % (status["distance_traveled"], status["player_y"], status["player_vel"])
+    return "player: (distance: %-7.2f, y position: %4.2f, y velocity: %4.2f)" % (
+    status["distance_traveled"], status["player_y"], status["player_vel"])
+
+
 def display_status_line_2(status):
-    return "distance to: (ceiling: %-3.2f, floor: %3.2f)" %(status["player_dist_to_ceil"], status["player_dist_to_floor"])
+    return "distance to: (ceiling: %-3.2f, floor: %3.2f)" % (
+    status["player_dist_to_ceil"], status["player_dist_to_floor"])
+
+
 def display_status_line_3(status):
-    return "obstacle: (distance: %3.2f, top: %3.2f, bottom: %3.2f)" %(status["next_gate_dist_to_player"], status["next_gate_block_top"], status["next_gate_block_bottom"])
+    return "obstacle: (distance: %3.2f, top: %3.2f, bottom: %3.2f)" % (
+    status["next_gate_dist_to_player"], status["next_gate_block_top"], status["next_gate_block_bottom"])
+
+
+def display_status_line_4(status):
+    return "sensors: {}".format(status["segments"])
+
 
 #################################################################################################
 if __name__ == "__main__":
     import numpy as np
 
-    #Instantiate the agent, if an agent is specified
+    # Instantiate the agent, if an agent is specified
     if agent_argument is not None:
         agent = Agent.Agent()
     else:
         agent = None
 
-    #Instantiate and initialize the game
+    # Instantiate and initialize the game
+    if arguments.headless == True:
+        os.environ["SDL_VIDEODRIVER"] = "dummy"
+
     pygame.init()
     game = Pixelcopter(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, agent=agent)
     game.screen = pygame.display.set_mode(game.getScreenDims(), 0, 32)
@@ -527,20 +584,20 @@ if __name__ == "__main__":
     game.rng = np.random.RandomState(24)
     game.init()
 
-    #Instantiate the font used to display text on the screen
+    # Instantiate the font used to display text on the screen
     courier_font = pygame.freetype.Font("fonts/courier.ttf", 16)
 
     while True:
         if game.game_over():
             game.reset()
 
-        if not game.paused: 
-            
+        if not game.paused:
+
             # Increment the time, delaying frames to keep a constant framerate
-            dt = game.clock.tick_busy_loop(arguments.fps) #default is 30
+            dt = game.clock.tick_busy_loop(arguments.fps)  # default is 30
             # Instead of using a dynamic dt, use a constant dt so that an agent's speed
             #   does not change relative to the game speed.
-            #game.step(dt)
+            # game.step(dt)
             game.step(33)
 
             # Determine whether to display data to the screen (chosen by user)
@@ -551,16 +608,17 @@ if __name__ == "__main__":
                     state = game.getNoisyGameState()
                 else:
                     state = game.getGameState()
-                
+
                 # Display data to the screen
-                courier_font.render_to(game.screen, (0,  0), display_status_line_1(state), BLACK)
+                courier_font.render_to(game.screen, (0, 0), display_status_line_1(state), BLACK)
                 courier_font.render_to(game.screen, (0, 20), display_status_line_2(state), BLACK)
                 courier_font.render_to(game.screen, (0, 40), display_status_line_3(state), BLACK)
-            
+                courier_font.render_to(game.screen, (0, 60), display_status_line_4(state), BLACK)
+
             # Animate
             if not arguments.quiet_mode:
                 pygame.display.update()
- 
+
         # If the game is paused, we still need to handle a user's "quit" action.
         if game.paused:
             game._handle_player_pause_quit_events()

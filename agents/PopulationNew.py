@@ -33,49 +33,35 @@ class Population(object):
 
     def crossover(self, genome1, genome2):
 
-            alpha = 0.6
-            # alpha=np.random.randint(0, 1)
-            #        genome1_array = []
-            #        genome2_array = []
-            #        for k in range (len(genome1.weights)):
-            #            genome1_array.append(np.squeeze(np.asarray(genome1.weights[k])))
-            #            genome2_array.append(np.squeeze(np.asarray(genome2.weights[k])))
-            A = copy.deepcopy(genome1.weights)
-            B = copy.deepcopy(genome1.weights)
-            I = copy.deepcopy(genome1.weights)
+            alpha = 0.5
+            A=[]
+            B=[]
+            I=[]
             for i in range(len(genome1.weights)):
-                (rows, columns) = genome1.weights[i].shape
-                for j in range(rows):
-                    for k in range(columns):
-                        B[i][j, k] = max(genome1.weights[i][j, k], genome2.weights[i][j, k])
-                        A[i][j, k] = min(genome1.weights[i][j, k], genome2.weights[i][j, k])
-                        I[i][j, k] = abs(genome1.weights[i][j, k] - genome2.weights[i][j, k])
+                B.append(np.multiply(((genome1.weights[i] >= genome2.weights[i]) * 1), genome1.weights[i]) + np.multiply(
+                    ((genome1.weights[i] <= genome2.weights[i]) * 1), genome2.weights[i])) #max values
+                A.append(np.multiply(((genome1.weights[i] <= genome2.weights[i]) * 1), genome1.weights[i]) + np.multiply(
+                    ((genome1.weights[i] >= genome2.weights[i]) * 1), genome2.weights[i])) #min values
+                I.append(abs(genome1.weights[i] - genome2.weights[i]))
 
             C1 = copy.deepcopy(genome1)
             C2 = copy.deepcopy(genome1)
             for i in range(len(A)):
-                (rows, columns) = A[i].shape
-                for j in range(rows):
-                    for k in range(columns):
-                        C1.weights[i][j, k] = np.random.uniform(A[i][j, k] - alpha * I[i][j, k],
-                                                                B[i][j, k] + alpha * I[i][j, k])
-                        C2.weights[i][j, k] = np.random.uniform(A[i][j, k] - alpha * I[i][j, k],
-                                                                B[i][j, k] + alpha * I[i][j, k])
-            # counter = 0
+                C1.weights[i] = np.random.uniform(A[i] - alpha * I[i], B[i] + alpha * I[i])
+                C2.weights[i] = np.random.uniform(A[i] - alpha * I[i], B[i] + alpha * I[i])
 
             return [C1, C2]
 
 
     def mutation(self, genome):
 
-        for i in genome.weights:
-            b = np.random.uniform(0, 1, i.shape) #mutation chance
-            c = np.random.uniform(-1, 1, i.shape) #new values
-            mask1 = (b<mutation_probability)*1 #b values on proper positions
-            mask2 = (b>=mutation_probability)*1 #reversed mask2
-            temp = np.multiply(mask2, i)
-            i = temp + np.multiply(c, mask1)
-
+        for i in range(len(genome.weights)):
+            b = np.random.uniform(0, 1, genome.weights[i].shape) #mutation chance
+            c = np.random.uniform(-1, 1, genome.weights[i].shape) #new values
+            mask1 = (b<mutation_probability)*1 #mask that has 1 in positions where the mutation should happen
+            mask2 = (b>=mutation_probability)*1 #reversed mask1
+            temp = np.multiply(mask2, genome.weights[i])
+            genome.weights[i] = temp + np.multiply(c, mask1)
 
         return genome
 
@@ -136,12 +122,8 @@ class Population(object):
     def initRun(self, n):
         self.generationsToRun = n
         self.generationNumber += 1
-        #self.startTime = time.time()
 
     def finishRun(self):
-
-        #print([genome.Fitness for genome in self.population])
-
 
        # Create the next generation from the current generation.
         self.population = self.createNewGeneration()
@@ -150,13 +132,12 @@ class Population(object):
         print("Average distance of generation", self.generationNumber+1, "is:", self.averageFitness)
         print("Elapsed time:", self.elapsedTime, "seconds")
         print("Best Distance reached is: ", self.bestFitnessEver)
+        print("_________________________________________________________")
 
         if self.generationNumber < self.generationsToRun:
-            # return list(iteritems(self.population)), self.config
             self.startTime = time.time()
             return True
         else:
-            # return None, self.config
             self.startTime = time.time()
             return False
 
