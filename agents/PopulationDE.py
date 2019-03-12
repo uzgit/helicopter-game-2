@@ -101,7 +101,7 @@ class Population(object):
             output.write(str(self.averageFitness) + "\n")
             output.close()
 
-            self.elapsedTime = time.time() - self.startTime
+        self.elapsedTime = time.time() - self.startTime
 
         return self.population
 
