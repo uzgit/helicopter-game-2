@@ -72,10 +72,17 @@ class Population(object):
 
         if self.bestFitness > self.bestFitnessEver:
             self.bestFitnessEver = self.bestFitness
-            with open('data.txt', 'a') as output:
-                output.write(str(newPopulation[0].weights)+"\n")
-                output.write(str(self.bestFitness)+"\n")
+            with open('BestGenome.txt', 'a') as output:
+                output.write(str(newPopulation[0].weights) + "\n")
+                output.write(str(self.bestFitness) + "\n")
                 output.close()
+        with open('BestFitness.txt', 'a') as output:
+            output.write(str(self.bestFitness) + "\n")
+            output.close()
+
+        with open('AverageFitness.txt', 'a') as output:
+            output.write(str(self.averageFitness) + "\n")
+            output.close()
 
 
         fitnessList = []
