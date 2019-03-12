@@ -560,7 +560,12 @@ def display_status_line_3(status):
 
 
 def display_status_line_4(status):
-    return "sensors: {}".format(status["segments"])
+    # return "sensors: {}".format(status["segments"])
+    representation = "sensors: ["
+    for sensor_output in status["segments"]:
+        representation += "%4.3f," % sensor_output
+    representation += "]"
+    return representation
 
 
 #################################################################################################
