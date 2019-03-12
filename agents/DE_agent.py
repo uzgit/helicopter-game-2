@@ -34,6 +34,8 @@ class Agent():
                 self.population_object.finishRun()
                 self.population_object.initRun(n=self.generations)
             else:
+                newPopulation = sorted(self.population_object.getPopulation(), key=lambda x: -x.getFitness())
+                self.population_object.pBest = newPopulation[:int(currentToPBest*pop_size)]
                 self.population_object.population = self.population_object.createTrialPopulation()
 
             self.genome_index = 0
@@ -62,16 +64,13 @@ class Agent():
             See code for structure.
 
         """
-        inputs = list(game_state.values())[1:8]
-        inputs[0] /= 500
-        inputs[1] /= 50
-        inputs[2] /= 500
-        inputs[3] /= 500
-        inputs[4] /= 500
-        inputs[5] /= 500
-        inputs[6] /= 500
-        for i in game_state["segments"]:
-            inputs.append(i)
+        inputs = [normalized_height for normalized_height in game_state["normalized_heights"]]
+
+        # segments has 5 elements by default
+        inputs += [segment for segment in game_state["segments"]]
+
+
+        inputs.append(game_state["player_vel"] / 50)
 
         action = None
         Inputs=np.array(inputs)

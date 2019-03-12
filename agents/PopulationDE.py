@@ -10,6 +10,8 @@ from .Config import *
 from .Genome import *
 import time
 import copy
+import random
+import pickle
 
 
 class Population(object):
@@ -26,6 +28,7 @@ class Population(object):
         self.startTime = 0
         self.bestFitnessEver = 0
         self.previousPopulation = []
+        self.pBest = []
 
         for i in range(self.populationSize):
             self.population.append(Genome(num_inputs, num_outputs, nodes_per_layer, [weight_min_value, weight_max_value]))
@@ -49,6 +52,15 @@ class Population(object):
 
         return mutant
 
+    def mutationPBest(self, target, best, a, b):
+
+        mutant = copy.deepcopy(target)
+        for i in range(len(target.weights)):
+            mutant.weights[i] = target.weights[i] + mutation_rate*(best.weights[i] - target.weights[i]) + mutation_rate * (a.weights[i] - b.weights[i])
+
+        return mutant
+
+
 
     def createTrialPopulation(self): #creates 1 generation
         self.previousPopulation = copy.deepcopy(self.population) #needed for checking which units should be in the new population
@@ -56,12 +68,13 @@ class Population(object):
 
             target = self.population[i]
             indexes = [idx for idx in range(self.populationSize) if idx != i]
-            selected = np.random.choice(indexes, 3, replace=False)
+            selected = np.random.choice(indexes, 2, replace=False)
             a = self.population[selected[0]]
             b = self.population[selected[1]]
-            c = self.population[selected[2]]
+            #c = self.population[selected[2]]
 
-            mutant = self.mutation(target, a, b, c)
+            #mutant = self.mutation(target, a, b, c)
+            mutant = self.mutationPBest(target, random.choice(self.pBest), a, b)
             trial = self.recombination(target, mutant)
             self.population[i] = trial
 
@@ -76,10 +89,18 @@ class Population(object):
 
         if self.bestFitness > self.bestFitnessEver:
             self.bestFitnessEver = self.bestFitness
-            with open('data.txt', 'a') as output:
+            with open('BestGenome.txt', 'a') as output:
                 output.write(str(newPopulation[0].weights) + "\n")
                 output.write(str(self.bestFitness) + "\n")
                 output.close()
+        with open('BestFitness.txt', 'a') as output:
+            output.write(str(self.bestFitness) + "\n")
+            output.close()
+
+        with open('AverageFitness.txt', 'a') as output:
+            output.write(str(self.averageFitness) + "\n")
+            output.close()
+
             self.elapsedTime = time.time() - self.startTime
 
         return self.population
@@ -95,12 +116,12 @@ class Population(object):
 
 
        # Create the next generation from the current generation.
-        if self.generationNumber != 1:
-            print("Best Distance of generation: ", self.bestFitness)
-            print("Average distance of generation", self.generationNumber+1, "is:", self.averageFitness)
-            print("Elapsed time:", self.elapsedTime, "seconds")
-            print("Best Distance reached is: ", self.bestFitnessEver)
-            print("_________________________________________________________")
+
+        print("Best Distance of generation: ", self.bestFitness)
+        print("Average distance of generation", self.generationNumber+1, "is:", self.averageFitness)
+        print("Elapsed time:", self.elapsedTime, "seconds")
+        print("Best Distance reached is: ", self.bestFitnessEver)
+        print("_________________________________________________________")
 
         if self.previousPopulation != []:
             for i in range(self.populationSize):
@@ -114,6 +135,4 @@ class Population(object):
         else:
             self.startTime = time.time()
             return False
-
-
 

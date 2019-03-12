@@ -22,3 +22,4 @@ mutation_rate = 1.5
 crossp = 0.7
 elitism_portion = 0.3
 random_others_portion = 0.2
+currentToPBest = 0.1
