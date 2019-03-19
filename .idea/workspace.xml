@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f72f842-336a-4bad-8878-2371f74d635f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/agents/Config.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents/Config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/GA_agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/config-feedforward" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/config-feedforward-with-segments" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/config-recurrent" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/neat_agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/neat_agent.py.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/neat_agent.py.orig2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/neat_ff_agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/neat_ff_agent_with_segments.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/neat_r_agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/population.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/stupid_agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents/stupid_helicopter_agent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -365,14 +350,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21875" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32993197" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3809524" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3809524" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.49829933" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
