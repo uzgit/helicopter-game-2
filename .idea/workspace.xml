@@ -2,7 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f72f842-336a-4bad-8878-2371f74d635f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/agents/PopulationDE.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents/PopulationDE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/Config.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents/Config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/GA_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/config-feedforward" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/config-feedforward-with-segments" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/config-recurrent" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/neat_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/neat_agent.py.orig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/neat_agent.py.orig2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/neat_ff_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/neat_ff_agent_with_segments.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/neat_r_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/population.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/stupid_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents/stupid_helicopter_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,17 +30,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agents/Genome.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-195">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="-446">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/agents/Config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="24" column="14" selection-start-line="24" selection-end-line="24" selection-end-column="14" />
+            <state relative-caret-position="214">
+              <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -33,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pixelcopter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1032">
-              <caret line="629" lean-forward="true" selection-start-line="629" selection-end-line="629" />
+            <state relative-caret-position="10676">
+              <caret line="628" selection-start-line="628" selection-end-line="628" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -42,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agents/PopulationDE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
+            <state relative-caret-position="61">
+              <caret line="38" column="67" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="67" />
               <folding>
                 <element signature="e#201#238#0" expanded="true" />
               </folding>
@@ -55,10 +70,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/random.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="260" selection-start-line="260" selection-end-line="260" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agents/DE_agent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="43" column="78" lean-forward="true" selection-start-line="43" selection-start-column="78" selection-end-line="43" selection-end-column="78" />
+            <state relative-caret-position="114">
+              <caret line="37" column="91" lean-forward="true" selection-start-line="37" selection-start-column="91" selection-end-line="37" selection-end-column="91" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -88,6 +112,7 @@
       <find>avera</find>
       <find>agent</find>
       <find>agent.reset</find>
+      <find>crossp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,10 +129,10 @@
         <option value="$PROJECT_DIR$/agents/PopulationNew.py" />
         <option value="$PROJECT_DIR$/agents/Genome.py" />
         <option value="$PROJECT_DIR$/agents/GA_agent.py" />
-        <option value="$PROJECT_DIR$/agents/Config.py" />
         <option value="$PROJECT_DIR$/pixelcopter.py" />
         <option value="$PROJECT_DIR$/agents/DE_agent.py" />
         <option value="$PROJECT_DIR$/agents/PopulationDE.py" />
+        <option value="$PROJECT_DIR$/agents/Config.py" />
       </list>
     </option>
   </component>
@@ -249,7 +274,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pixelcopter.py" />
-      <option name="PARAMETERS" value="--agent DE_agent --fps 9999" />
+      <option name="PARAMETERS" value="--agent DE_agent --fps 99999" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -347,7 +372,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32993197" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37585035" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3809524" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.49829933" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -363,23 +388,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/agents/PopulationDE.py</url>
-          <line>105</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/agents/PopulationDE.py</url>
-          <line>66</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/agents/PopulationDE.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -467,13 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agents/config-feedforward-with-segments">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="80" column="24" selection-start-line="2" selection-end-line="80" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/neat/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2635">
@@ -506,16 +507,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
           <caret line="194" selection-start-line="194" selection-end-line="194" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agents/population.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="146" column="25" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="25" />
-          <folding>
-            <element signature="e#47#84#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -575,41 +566,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agents/Config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="24" column="14" selection-start-line="24" selection-end-line="24" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pixelcopter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1032">
-          <caret line="629" lean-forward="true" selection-start-line="629" selection-end-line="629" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agents/DE_agent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="43" column="78" lean-forward="true" selection-start-line="43" selection-start-column="78" selection-end-line="43" selection-end-column="78" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BestFitness.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BestGenome.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2620" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/BestFitness.txt" />
+    <entry file="file://$PROJECT_DIR$/BestGenome.txt" />
     <entry file="file://$PROJECT_DIR$/data.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-123164">
@@ -617,23 +575,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agents/Genome.py">
+    <entry file="file://$PROJECT_DIR$/AverageFitness.txt" />
+    <entry file="file://$PROJECT_DIR$/agents/config-feedforward-with-segments">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-195">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="1360">
+          <caret line="80" column="24" selection-start-line="2" selection-end-line="80" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AverageFitness.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/agents/population.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2479">
+          <caret line="146" column="25" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="25" />
+          <folding>
+            <element signature="e#47#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pixelcopter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10676">
+          <caret line="628" selection-start-line="628" selection-end-line="628" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="260" selection-start-line="260" selection-end-line="260" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agents/DE_agent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="37" column="91" lean-forward="true" selection-start-line="37" selection-start-column="91" selection-end-line="37" selection-end-column="91" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agents/Genome.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-446">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agents/PopulationDE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
+        <state relative-caret-position="61">
+          <caret line="38" column="67" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="67" />
           <folding>
             <element signature="e#201#238#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agents/Config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
         </state>
       </provider>
     </entry>
